@@ -1,0 +1,10 @@
+hospital,cms_id,type,adult_level1_trauma,lat,lon,fiscal_year_end,total_costs,net_patient_revenue,charity_care_cost,uncompensated_care_cost,net_income,er_median_minutes,er_left_without_seen_pct,er_volume,charity_pct_of_costs,uncomp_pct_of_costs,medicaid_pct_of_charges
+Stroger (Cook County),140124,Public safety-net,Yes,41.87,-87.67,11/30/2024,1264264942.0,485254272.0,209926636.0,330158332.0,83197876.0,297.0,1.0,"60,000+",16.6,26.11,34.35
+Mount Sinai,140018,Private safety-net,Yes,41.86,-87.69,06/30/2025,323718821.0,253715378.0,36620417.0,41729551.0,-41443989.0,205.0,1.0,"40,000–59,999",11.31,12.89,57.98
+Loyola University Medical Center,140276,Private nonprofit / academic,Yes,41.86,-87.83,06/30/2025,1007561581.0,1445664835.0,23556822.0,24905617.0,-44599117.0,,,,2.34,2.47,19.48
+Northwestern Memorial,140281,Private nonprofit / academic,Yes,41.9,-87.62,08/31/2025,2127465466.0,2815366982.0,48435971.0,56792456.0,265814370.0,354.0,10.0,"60,000+",2.28,2.67,11.05
+Rush University Medical Center,140119,Private nonprofit / academic,No,41.87,-87.67,06/30/2025,1432450040.0,2378971283.0,25324929.0,33022050.0,412398599.0,,,,1.77,2.31,21.74
+Advocate Lutheran General,140223,Private nonprofit / academic,Yes,42.04,-87.85,12/31/2024,939248900.0,1299287809.0,15992529.0,25434314.0,226479729.0,,,,1.7,2.71,18.05
+Advocate Illinois Masonic,140182,Private nonprofit / academic,Yes,41.94,-87.65,12/31/2024,585134999.0,865963701.0,8690160.0,14884058.0,203534106.0,238.0,2.0,"40,000–59,999",1.49,2.54,14.15
+UChicago Medical Center,140088,Private nonprofit / academic,Yes,41.79,-87.6,06/30/2025,2255214111.0,2814616480.0,29895046.0,36797246.0,267135279.0,314.0,12.0,"60,000+",1.33,1.63,23.08
+Advocate Christ,140208,Private nonprofit / academic,Yes,41.72,-87.73,12/31/2024,1303040731.0,1634888322.0,17075220.0,28092753.0,190325986.0,230.0,6.0,"60,000+",1.31,2.16,23.31
