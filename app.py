@@ -28,7 +28,7 @@ h1 {font-size:2.1rem !important; letter-spacing:-.035em}
 
 st.sidebar.title('MYUZIMA')
 st.sidebar.caption('Chicago community health insights')
-page=st.sidebar.radio('Explore', ['Overview','Neighborhoods','Healthcare access','Neighborhood insights','Hospital finances','Data & methods'])
+page=st.sidebar.radio('Explore', ['Overview','Neighborhoods','Healthcare access','Neighborhood insights','what-if','Hospital finances','Data & methods'])
 years=sorted(ny.year.dropna().astype(int).unique())
 year=st.sidebar.selectbox('Reporting year',years,index=len(years)-1)
 areas=sorted(ny.ca_name.dropna().unique())
