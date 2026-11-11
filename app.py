@@ -6,6 +6,32 @@ import streamlit as st
 import plotly.graph_objects as go
 
 st.set_page_config(page_title='Myuzima | Chicago Dashboard', page_icon='🏙️', layout='wide')
+
+st.markdown("""
+<style>
+/* Keep custom sidebar and metric cards readable in both themes */
+[data-testid="stSidebar"] {
+    background-color: #f7f9fc !important;
+}
+
+[data-testid="stSidebar"] * {
+    color: #202938;
+}
+
+[data-testid="stMetric"] {
+    background-color: #f5f8fc !important;
+    border: 1px solid #e2e9f2 !important;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+[data-testid="stMetricLabel"],
+[data-testid="stMetricValue"] {
+    color: #202938 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 ROOT = Path(__file__).parent / 'data'
 @st.cache_data
 def load():
