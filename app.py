@@ -147,7 +147,18 @@ if page=='Overview':
     long=agg.melt(id_vars='year',var_name='Type',value_name='Victims')
     fig=px.bar(long,x='year',y='Victims',color='Type',color_discrete_map={'fatal':'#b6383a','nonfatal':'#3989c9'},barmode='stack',height=340)
     fig.update_layout(margin=dict(l=0,r=0,t=5,b=0),xaxis=dict(dtick=1))
-    st.plotly_chart(fig,use_container_width=True)
+    
+        event = st.plotly_chart(
+            fig,
+            use_container_width=True,
+            on_select="rerun",
+            selection_mode="points",
+            key="overview_map"
+        )
+
+        if event.selection.points:
+            st.write("Selected map point:", event.selection.points[0])
+
     st.caption('Counts are shooting victims, not distinct shooting incidents. Different indicators may use different source years.')
 
 elif page=='Neighborhoods':
