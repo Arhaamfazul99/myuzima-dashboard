@@ -9,28 +9,66 @@ st.set_page_config(page_title='Myuzima | Chicago Dashboard', page_icon='🏙️'
 
 st.markdown("""
 <style>
-/* Keep custom sidebar and metric cards readable in both themes */
+
+/* Main dashboard layout */
+.block-container {
+    padding-top: 1.4rem;
+    max-width: 1320px;
+}
+
+h1 {
+    font-size: 2.1rem !important;
+    letter-spacing: -.035em;
+}
+
+/* Follow Streamlit's selected theme */
+[data-testid="stAppViewContainer"],
 [data-testid="stSidebar"] {
-    background-color: #f7f9fc !important;
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
 }
 
-[data-testid="stSidebar"] * {
-    color: #202938;
-}
-
+/* Metric cards */
 [data-testid="stMetric"] {
-    background-color: #f5f8fc !important;
-    border: 1px solid #e2e9f2 !important;
+    background-color: var(--secondary-background-color) !important;
+    border: 1px solid var(--secondary-background-color) !important;
     border-radius: 12px;
     padding: 16px;
 }
 
+[data-testid="stMetricLabel"] {
+    font-weight: 600;
+}
+
 [data-testid="stMetricLabel"],
 [data-testid="stMetricValue"] {
-    color: #202938 !important;
+    color: var(--text-color) !important;
 }
+
+/* Dropdowns and input boxes */
+[data-baseweb="select"] > div,
+[data-baseweb="input"] > div {
+    background-color: var(--secondary-background-color) !important;
+    color: var(--text-color) !important;
+}
+
+[data-baseweb="select"] input,
+[data-baseweb="select"] span,
+[data-baseweb="select"] div {
+    color: var(--text-color) !important;
+}
+
+/* Sidebar text */
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span {
+    color: var(--text-color) !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
+
+
 
 ROOT = Path(__file__).parent / 'data'
 @st.cache_data
