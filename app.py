@@ -146,30 +146,9 @@ if page=='Overview':
     agg=trend.groupby('year',as_index=False)[['fatal','nonfatal']].sum(min_count=1)
     long=agg.melt(id_vars='year',var_name='Type',value_name='Victims')
     fig=px.bar(long,x='year',y='Victims',color='Type',color_discrete_map={'fatal':'#b6383a','nonfatal':'#3989c9'},barmode='stack',height=340)
-    
-        fig.update_layout(
-            margin=dict(l=0, r=0, t=0, b=0),
-            coloraxis_colorbar=dict(
-                title='Rate' if field.endswith('10k') else 'Victims'
-            )
-        )
-
-        event = st.plotly_chart(
-            fig,
-            use_container_width=True,
-            on_select="rerun",
-            selection_mode="points",
-            key="overview_map"
-        )
-
-        if event.selection.points:
-            st.write("Selected map point:", event.selection.points[0])
-
-        st.caption(
-            'Map shows all 77 areas for the selected year. '
-            'The community-area filter controls the summary and trends.'
-        )
-
+    fig.update_layout(margin=dict(l=0,r=0,t=5,b=0),xaxis=dict(dtick=1))
+    st.plotly_chart(fig,use_container_width=True)
+    st.caption('Counts are shooting victims, not distinct shooting incidents. Different indicators may use different source years.')
 elif page=='Neighborhoods':
     st.subheader('Compare Chicago community areas')
     metrics()
