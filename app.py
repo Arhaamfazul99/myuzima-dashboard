@@ -82,13 +82,6 @@ def load():
 ny,cy,profiles,hospitals,geo = load()
 for d in (ny,cy,profiles,hospitals):
     d.columns=d.columns.str.strip()
-st.markdown('''<style>
-.block-container {padding-top:1.4rem; max-width:1320px}
-h1 {font-size:2.1rem !important; letter-spacing:-.035em}
-[data-testid="stMetric"] {background:#f5f8fc; padding:16px; border:1px solid #e2e9f2; border-radius:12px}
-[data-testid="stMetricLabel"] {font-weight:600}
-[data-testid="stSidebar"] {background:#f7f9fc}
-</style>''',unsafe_allow_html=True)
 
 st.sidebar.title('MYUZIMA')
 st.sidebar.caption('Chicago community health insights')
