@@ -9,66 +9,60 @@ st.set_page_config(page_title='Myuzima | Chicago Dashboard', page_icon='🏙️'
 
 st.markdown("""
 <style>
-
-/* Main dashboard layout */
-.block-container {
-    padding-top: 1.4rem;
-    max-width: 1320px;
+/* Myuzima-inspired visual language: care, community, and clarity.
+   Custom interpretation, not an official brand-style specification. */
+:root { --myu-ink:#19332f; --myu-teal:#176a61; --myu-gold:#d69b47;
+        --myu-paper:#f6f4ee; --myu-card:#ffffff; --myu-muted:#586b65; }
+[data-testid="stAppViewContainer"] {
+  background: radial-gradient(circle at 87% 2%, rgba(214,155,71,.12), transparent 33%),
+              linear-gradient(180deg,#f8f7f2 0%,#edf4f0 100%);
+  color:var(--myu-ink);
 }
-
-h1 {
-    font-size: 2.1rem !important;
-    letter-spacing: -.035em;
-}
-
-/* Follow Streamlit's selected theme */
-[data-testid="stAppViewContainer"],
+[data-testid="stHeader"] { background:transparent; }
 [data-testid="stSidebar"] {
-    background-color: var(--background-color) !important;
-    color: var(--text-color) !important;
+  background:linear-gradient(175deg,#173e37 0%,#102d29 100%);
+  border-right:1px solid rgba(255,255,255,.12);
 }
-
-/* Metric cards */
+[data-testid="stSidebar"] * { color:#f5f7f3; }
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color:#c2d6cd; }
+[data-testid="stSidebar"] [role="radiogroup"] label {
+  border-radius:11px;padding:7px 10px;margin:3px 0;
+}
+[data-testid="stSidebar"] [role="radiogroup"] label:hover { background:rgba(255,255,255,.1); }
+.block-container {padding-top:1.6rem;max-width:1380px;padding-bottom:3rem;}
+h1,h2,h3 { color:var(--myu-ink)!important;letter-spacing:-.025em; }
+h1 {font-size:2.15rem!important;font-weight:800!important;}
+h2,h3 {font-weight:750!important;}
+p,li {line-height:1.55;}
+[data-testid="stCaptionContainer"] {color:var(--myu-muted);}
 [data-testid="stMetric"] {
-    background-color: var(--secondary-background-color) !important;
-    border: 1px solid var(--secondary-background-color) !important;
-    border-radius: 12px;
-    padding: 16px;
+  background:var(--myu-card);border:1px solid #dce8e1;
+  border-top:4px solid var(--myu-teal);border-radius:16px;
+  padding:18px 19px;box-shadow:0 7px 24px rgba(21,63,54,.055);
 }
-
-[data-testid="stMetricLabel"] {
-    font-weight: 600;
+[data-testid="stMetricLabel"] {font-weight:650;color:#46625a;}
+[data-testid="stMetricValue"] {color:var(--myu-ink);font-weight:800;}
+[data-testid="stPlotlyChart"], [data-testid="stDataFrame"] {
+  background:#fff;border:1px solid #dce8e1;
+  border-radius:15px;padding:9px;
+  box-shadow:0 6px 20px rgba(21,63,54,.045);
 }
-
-[data-testid="stMetricLabel"],
-[data-testid="stMetricValue"] {
-    color: var(--text-color) !important;
+.stButton>button, .stDownloadButton>button {
+  background:var(--myu-teal);color:white;border:0;border-radius:10px;
+  font-weight:650;padding:.55rem 1rem;
 }
-
-/* Dropdowns and input boxes */
-[data-baseweb="select"] > div,
-[data-baseweb="input"] > div {
-    background-color: var(--secondary-background-color) !important;
-    color: var(--text-color) !important;
+.stButton>button:hover, .stDownloadButton>button:hover {
+  background:#10564f;color:white;border:0;
 }
-
-[data-baseweb="select"] input,
-[data-baseweb="select"] span,
-[data-baseweb="select"] div {
-    color: var(--text-color) !important;
-}
-
-/* Sidebar text */
-[data-testid="stSidebar"] label,
-[data-testid="stSidebar"] p,
-[data-testid="stSidebar"] span {
-    color: var(--text-color) !important;
-}
-
+[data-testid="stAlert"] {border-radius:12px;}
+hr {border-color:#dce8e1;}
+[data-baseweb="select"]>div {border-radius:10px;background-color:#fff;}
+/* Keep main-content text readable regardless of Streamlit browser theme. */
+[data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] {color:var(--myu-ink);}
+/* Leave plotly maps and dataframes themselves in their native themes. */
+@media(max-width:760px) { .block-container{padding-left:1rem;padding-right:1rem;} h1{font-size:1.7rem!important;} }
 </style>
 """, unsafe_allow_html=True)
-
-
 
 ROOT = Path(__file__).parent / 'data'
 @st.cache_data
@@ -83,8 +77,8 @@ ny,cy,profiles,hospitals,geo = load()
 for d in (ny,cy,profiles,hospitals):
     d.columns=d.columns.str.strip()
 
-st.sidebar.title('MYUZIMA')
-st.sidebar.caption('Chicago community health insights')
+st.sidebar.markdown('## MYUZIMA 🌿')
+st.sidebar.caption('Health equity • Community • Data')
 page=st.sidebar.radio('Explore', ['Overview','Neighborhoods','Healthcare access','Neighborhood insights','Hospital finances','Data & methods'])
 years=sorted(ny.year.dropna().astype(int).unique())
 year=st.sidebar.selectbox('Reporting year',years,index=len(years)-1)
@@ -92,8 +86,15 @@ areas=sorted(ny.ca_name.dropna().unique())
 area=st.sidebar.selectbox('Focus community area',['All Chicago']+areas)
 st.sidebar.caption('Study area: Chicago’s 77 community areas')
 
-st.title('Chicago Gun Violence & Healthcare Dashboard')
-st.caption('Myuzima • Chicago community areas • Descriptive data, not causal predictions')
+st.markdown("""<div style="padding:22px 26px 19px;border-radius:20px;
+background:linear-gradient(120deg,#173e37,#236d61);color:#fff;
+margin-bottom:18px;box-shadow:0 10px 28px rgba(17,70,58,.16)">
+<div style="color:#f4c985;font-size:.77rem;font-weight:800;letter-spacing:.14em">MYUZIMA  /  COMMUNITY HEALTH INTELLIGENCE</div>
+<div style="font-size:clamp(1.35rem,2.6vw,2.15rem);font-weight:800;line-height:1.2;margin:8px 0">Chicago Gun Violence & Healthcare Dashboard</div>
+<div style="color:#d8eee7;font-size:.96rem">Understanding neighborhood safety, healthcare access, and economic conditions across Chicago's 77 community areas.</div>
+<div style="margin-top:14px;color:#f7d8a6;font-size:.82rem">ENVIRONMENT &nbsp;•&nbsp; EDUCATION &nbsp;•&nbsp; ECONOMICS</div>
+</div>""",unsafe_allow_html=True)
+st.caption('Descriptive research and planning dashboard • Associations do not establish causation')
 current=ny[ny.year==year].copy()
 selected=current if area=='All Chicago' else current[current.ca_name==area]
 cityrow=cy[cy.year==year]
@@ -124,13 +125,13 @@ if page=='Overview':
         field='shot_rate_per_10k' if measure.startswith('Victims per') else 'shot_total'
         mapdf=current[['ca_num','ca_name',field]].copy()
         mapdf['ca_num']=mapdf.ca_num.astype(str)
-        fig=px.choropleth_mapbox(mapdf,geojson=geo,locations='ca_num',featureidkey='properties.ca_num',color=field,
-            hover_name='ca_name',hover_data={field:':.1f','ca_num':False},color_continuous_scale='YlOrRd',
+        map_geo = json.loads(json.dumps(geo))
+        for feature in map_geo['features']:
+            feature['properties']['ca_num'] = str(feature['properties']['ca_num'])
+        fig=px.choropleth_mapbox(mapdf,geojson=map_geo,locations='ca_num',featureidkey='properties.ca_num',color=field,
+            hover_name='ca_name',hover_data={field:':.1f','ca_num':False},color_continuous_scale=['#e5f1e9','#9ccdbc','#43a18c','#176a61','#103f39'],
             mapbox_style='carto-positron',center={'lat':41.84,'lon':-87.68},zoom=9.65,opacity=.78,height=520,
             labels={field:measure})
-        # GeoJSON area identifiers are numeric; align with CSV identifiers.
-        for feature in geo['features']:
-            feature['properties']['ca_num']=str(feature['properties']['ca_num'])
         fig.update_layout(margin=dict(l=0,r=0,t=0,b=0),coloraxis_colorbar=dict(title='Rate' if field.endswith('10k') else 'Victims'))
         st.plotly_chart(fig,use_container_width=True)
         st.caption('Map shows all 77 areas for the selected year. The community-area filter controls the summary and trends.')
@@ -138,14 +139,14 @@ if page=='Overview':
         st.subheader('Top 10 community areas')
         top=current.nlargest(10,'shot_total')[['ca_name','shot_total']].sort_values('shot_total')
         chart=px.bar(top,x='shot_total',y='ca_name',orientation='h',labels={'ca_name':'','shot_total':'Shooting victims'},height=490)
-        chart.update_traces(marker_color='#245d93')
+        chart.update_traces(marker_color='#176a61')
         chart.update_layout(margin=dict(l=0,r=0,t=10,b=0),showlegend=False)
         st.plotly_chart(chart,use_container_width=True)
     st.subheader('How have shootings changed over time?')
     trend=ny if area=='All Chicago' else ny[ny.ca_name==area]
     agg=trend.groupby('year',as_index=False)[['fatal','nonfatal']].sum(min_count=1)
     long=agg.melt(id_vars='year',var_name='Type',value_name='Victims')
-    fig=px.bar(long,x='year',y='Victims',color='Type',color_discrete_map={'fatal':'#b6383a','nonfatal':'#3989c9'},barmode='stack',height=340)
+    fig=px.bar(long,x='year',y='Victims',color='Type',color_discrete_map={'fatal':'#bd6854','nonfatal':'#278b79'},barmode='stack',height=340)
     fig.update_layout(margin=dict(l=0,r=0,t=5,b=0),xaxis=dict(dtick=1))
     st.plotly_chart(fig,use_container_width=True)
     st.caption('Counts are shooting victims, not distinct shooting incidents. Different indicators may use different source years.')
@@ -253,7 +254,7 @@ elif page == 'Healthcare access':
         featureidkey='properties.ca_num',
         color=value_col,
         hover_name='ca_name',
-        color_continuous_scale='YlOrRd',
+        color_continuous_scale=['#e5f1e9','#9ccdbc','#43a18c','#176a61','#103f39'],
         mapbox_style='carto-positron',
         center={'lat': 41.84, 'lon': -87.68},
         zoom=10.2,
@@ -273,7 +274,7 @@ elif page == 'Healthcare access':
                 mode='markers',
                 marker=dict(
                     size=13,
-                    color='#155e75',
+                    color='#d69b47',
                     opacity=0.95
                 ),
                 text=valid_hospitals['hospital'],
@@ -311,7 +312,7 @@ elif page == 'Healthcare access':
                     ],
                     showscale=False,
                     marker_line_width=4,
-                    marker_line_color='#17365d',
+                    marker_line_color='#d69b47',
                     hoverinfo='skip',
                     name='Selected community area'
                 )
@@ -424,7 +425,7 @@ elif page == 'Neighborhood insights':
             color='shot_rate_per_10k',
             hover_name='ca_name',
             hover_data=['clinics', 'nearest_center'],
-            color_continuous_scale='YlOrRd',
+            color_continuous_scale=['#e5f1e9','#9ccdbc','#43a18c','#176a61','#103f39'],
             labels={
                 'trauma_drive_min': 'Estimated drive time (minutes)',
                 'shot_rate_per_10k': 'Shooting victims per 10,000',
@@ -487,7 +488,7 @@ elif page=='Hospital finances':
     plot=cityh.dropna(subset=['total_costs']).sort_values('total_costs')
     if not plot.empty:
         fig=px.bar(plot,x='total_costs',y='hospital',orientation='h',labels={'total_costs':'Hospital-wide total costs ($)','hospital':''},height=410)
-        fig.update_traces(marker_color='#245d93')
+        fig.update_traces(marker_color='#176a61')
         st.plotly_chart(fig,use_container_width=True)
     st.caption('Hospital financial values and designations must be checked against original CMS filings before external publication.')
 
